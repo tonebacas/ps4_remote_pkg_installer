@@ -956,7 +956,7 @@ static bool handle_api_is_exists(sb_Stream* s, const char* method, const char* p
 			if (!app_inst_util_get_size(title_id, &size, &ret)) {
 				size = (unsigned long)-1;
 			}
-			sb_writef(s, "{ \"status\": \"success\", \"exists\": \"%s\", \"size\": 0x%" PRIXMAX " }\n", exists ? "true" : "false", (uintmax_t)size);
+			sb_writef(s, "{ \"status\": \"success\", \"exists\": \"%s\", \"size\": \"0x%\"" PRIXMAX " }\n", exists ? "true" : "false", (uintmax_t)size);
 		} else {
 			sb_writef(s, "{ \"status\": \"success\", \"exists\": \"%s\" }\n", exists ? "true" : "false");
 		}
@@ -1323,7 +1323,7 @@ static bool handle_api_get_task_progress(sb_Stream* s, const char* method, const
 
 		/* TODO: make bits field more user-friendly */
 		sb_writef(s,
-			"{ \"status\": \"success\", \"bits\": 0x%" PRIX32 ", \"error\": %d, \"length\": 0x%" PRIXMAX ", \"transferred\": 0x%" PRIXMAX ", \"length_total\": 0x%" PRIXMAX ", \"transferred_total\": 0x%" PRIXMAX ", \"num_index\": %" PRIu32 ", \"num_total\": %" PRIu32 ", \"rest_sec\": %" PRIu32 ", \"rest_sec_total\": %" PRIu32 ", \"preparing_percent\": %" PRId32 ", \"local_copy_percent\": %" PRId32 " }\n",
+			"{ \"status\": \"success\", \"bits\": \"0x%\"" PRIX32 ", \"error\": %d, \"length\": \"0x%\"" PRIXMAX ", \"transferred\": \"0x%\"" PRIXMAX ", \"length_total\": \"0x%\"" PRIXMAX ", \"transferred_total\": \"0x%\"" PRIXMAX ", \"num_index\": %" PRIu32 ", \"num_total\": %" PRIu32 ", \"rest_sec\": %" PRIu32 ", \"rest_sec_total\": %" PRIu32 ", \"preparing_percent\": %" PRId32 ", \"local_copy_percent\": %" PRId32 " }\n",
 			progress_info.bits, progress_info.error_result, (uintmax_t)progress_info.length, (uintmax_t)progress_info.transferred, (uintmax_t)progress_info.length_total, (uintmax_t)progress_info.transferred_total, progress_info.num_index, progress_info.num_total, progress_info.rest_sec, progress_info.rest_sec_total, progress_info.preparing_percent, progress_info.local_copy_percent
 		);
 	} else {
@@ -1496,7 +1496,7 @@ static void kick_result_header_json(sb_Stream* s) {
 
 static void kick_error_json(sb_Stream* s, int code) {
 	kick_result_header_json(s);
-	sb_writef(s, "{ \"status\": \"fail\", \"error_code\": 0x%08X }\n", code);
+	sb_writef(s, "{ \"status\": \"fail\", \"error_code\": \"0x%08X\" }\n", code);
 }
 
 static void kick_success_json(sb_Stream* s) {
